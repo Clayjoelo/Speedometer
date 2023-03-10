@@ -9,7 +9,6 @@ marker_number_x = 0
 speed = 0
 seconds = 0
 test_number = 1
-###THIS IS TESTING FOR READING CSV FILES
 
 f = open('timestamps.csv','r')
 reader = csv.reader(f)
