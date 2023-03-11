@@ -265,7 +265,7 @@ set_up_graph()
 
 #Runs the Main Program
 while True:
-    
+
     #TODO May have to move back to the top of the code
     for line in reader:
         times.append(int(line[0]))
@@ -277,6 +277,8 @@ while True:
     #Calculates the speed using wheel circumference and timestamps 
     for num in range(len(times) - test_number):
         milliseconds = times[num+1] - times[num]
+
+        #Makes sure the speed is 
         if speed == 0:
             break
         speed = wheel_circumference / milliseconds
