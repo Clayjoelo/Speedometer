@@ -10,12 +10,16 @@ speed = 0
 seconds = 0
 test_number = 1
 times = []
+old_times_list = []
+old_mph_list = []
+number_bookmark = 0
+always_on = False
+current_list = []
+eraser_num = -1
 
 #Opens Timestamps file and reads it
 f = open('speedometer/timestamps.csv','r')
 reader = csv.reader(f)
-
-
 
 #Constants
 WHEEL_DIAMETER = 20 
@@ -48,16 +52,6 @@ extras_turtle = turtle.Turtle()
 eraser_turtle = turtle.Turtle()
 
 
-old_times_list = []
-old_mph_list = []
-number_bookmark = 0
-eraser_turtle.color('white')
-always_on = False
-
-#Setting up eraser and buffer
-current_list = []
-eraser_num = -1
-
 #Erase point
 def erase_point(old_x, old_y):
 
@@ -78,6 +72,7 @@ def erase_point(old_x, old_y):
 def set_up_program(marker_number_x, marker_number_y):
     #Sets up the eraser turtle
     eraser_turtle.penup()
+    eraser_turtle.color('white')
     eraser_turtle.right(180)
     eraser_turtle.forward(450)
     eraser_turtle.left(90)
@@ -298,7 +293,7 @@ while True:
         seconds = 0
         always_on = True
 
-    #This sleeps the Program set at TIME_BETWEEEN_RUNNING
+    #This sleeps the Program set at TIME_BETWEEN_RUNNING
     time.sleep(TIME_BETWEEN_RUNNING / 2)
     extras_turtle.color('blue')
     time.sleep(TIME_BETWEEN_RUNNING / 2)
