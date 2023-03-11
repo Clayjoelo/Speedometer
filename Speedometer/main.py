@@ -265,6 +265,7 @@ set_up_graph()
 
 #Runs the Main Program
 while True:
+    
     #TODO May have to move back to the top of the code
     for line in reader:
         times.append(int(line[0]))
