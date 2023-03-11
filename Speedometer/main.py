@@ -9,12 +9,12 @@ marker_number_x = 0
 speed = 0
 seconds = 0
 test_number = 1
-
-f = open('timestamps.csv','r')
-reader = csv.reader(f)
 times = []
-for line in reader:
-    times.append(int(line[0]))
+
+#Opens Timestamps file and reads it
+f = open('speedometer/timestamps.csv','r')
+reader = csv.reader(f)
+
 
 
 #Constants
@@ -265,6 +265,11 @@ set_up_graph()
 
 #Runs the Main Program
 while True:
+    #TODO May have to move back to the top of the code
+    for line in reader:
+        times.append(int(line[0]))
+
+
     #Sets and Add seconds 
     seconds = seconds + TIME_BETWEEN_RUNNING 
 
