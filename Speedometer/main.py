@@ -4,7 +4,7 @@ import time as time
 import csv
 sc = turtle.Screen()
 sc.setup(1.0, 1.0)
-marker_number_y = 1
+marker_number_y = 0
 marker_number_x = 0
 speed = 0
 seconds = 0
@@ -17,7 +17,7 @@ always_on = False
 current_list = []
 eraser_num = -1
 
-#Opens Timestamps file and reads it
+#Opens Speedometer/Timestamps file in read mode
 f = open('speedometer/timestamps.csv','r')
 reader = csv.reader(f)
 
@@ -52,41 +52,8 @@ extras_turtle = turtle.Turtle()
 eraser_turtle = turtle.Turtle()
 
 
-#Erase point
-def erase_point(old_x, old_y):
-
-    #This places the dot
-    eraser_turtle.forward(old_x)
-    eraser_turtle.left(90)
-    eraser_turtle.forward(old_y)
-    eraser_turtle.right(90)
-    eraser_turtle.dot(10) #This has a Slightly Wider radius to avoid clipping
-
-    #This resets the point for the next dot
-    eraser_turtle.back(old_x)
-    eraser_turtle.left(90)
-    eraser_turtle.back(old_y)
-    eraser_turtle.right(90)
-
 #Sets up Program
 def set_up_program(marker_number_x, marker_number_y):
-    #Sets up the eraser turtle
-    eraser_turtle.penup()
-    eraser_turtle.color('white')
-    eraser_turtle.right(180)
-    eraser_turtle.forward(450)
-    eraser_turtle.left(90)
-    eraser_turtle.forward(260)
-    eraser_turtle.left(90)
-
-    #Sets up the dot maker
-    graph_plotter.penup()
-    graph_plotter.hideturtle()
-    graph_plotter.right(180)
-    graph_plotter.forward(450)
-    graph_plotter.left(90)
-    graph_plotter.forward(260)
-    graph_plotter.left(90)
 
     #Sets all of the speeds to fastest
     mph_txt_turtle.speed('fastest')
@@ -97,6 +64,24 @@ def set_up_program(marker_number_x, marker_number_y):
     extras_turtle.speed('fastest')
     eraser_turtle.speed('fastest')
 
+    #Sets up the eraser turtle
+    eraser_turtle.penup()
+    eraser_turtle.color('white')
+    eraser_turtle.right(180)
+    eraser_turtle.forward(450)
+    eraser_turtle.left(90)
+    eraser_turtle.forward(240)
+    eraser_turtle.left(90)
+
+    #Sets up the dot maker
+    graph_plotter.penup()
+    graph_plotter.hideturtle()
+    graph_plotter.right(180)
+    graph_plotter.forward(450)
+    graph_plotter.left(90)
+    graph_plotter.forward(240)
+    graph_plotter.left(90)
+
     #Number Drawling
     number_drawler.penup()
     number_drawler.right(180)
@@ -105,11 +90,14 @@ def set_up_program(marker_number_x, marker_number_y):
     number_drawler.forward(255)
     number_drawler.right(180)
 
+
     #Y - Axis Number Plotter
+    number_drawler.forward(12)
     for _ in range(0, 33):
         number_drawler.write(marker_number_y, font=("Arial", 10, "normal"))
         number_drawler.forward(20)
         marker_number_y = marker_number_y + 1
+    number_drawler.back(12)
 
     #X - Axis Number Plotter
     number_drawler.right(180)
@@ -183,6 +171,22 @@ def set_up_program(marker_number_x, marker_number_y):
     mph_turtle.right(90)
     mph_turtle.forward(360)
 
+#Erase point
+def erase_point(old_x, old_y):
+
+    #This places the dot
+    eraser_turtle.forward(old_x)
+    eraser_turtle.left(90)
+    eraser_turtle.forward(old_y)
+    eraser_turtle.right(90)
+    eraser_turtle.dot(10) #This has a Slightly Wider radius to avoid clipping
+
+    #This resets the point for the next dot
+    eraser_turtle.back(old_x)
+    eraser_turtle.left(90)
+    eraser_turtle.back(old_y)
+    eraser_turtle.right(90)
+
 #This graphs the new points
 def graph_new_point(x, y):
 
@@ -205,7 +209,7 @@ def set_up_graph():
     sheet_drawler.right(180)
     sheet_drawler.forward(450)
     sheet_drawler.right(90)
-    sheet_drawler.back(260)
+    sheet_drawler.back(250)
     sheet_drawler.pendown()
     sheet_drawler.forward(LENGTH)
     sheet_drawler.right(90)
@@ -215,6 +219,8 @@ def set_up_graph():
     sheet_drawler.right(90)
     sheet_drawler.forward(WIDTH)
 
+    #This is to the dots dont run over it
+    """
     #Makes the X Marks
     for _ in range(57):
         sheet_drawler.back(20)
@@ -235,24 +241,8 @@ def set_up_graph():
         sheet_drawler.forward(8)
         sheet_drawler.back(8)
         sheet_drawler.left(90)
-
+    """
     sheet_drawler.hideturtle()
-
-#This graphs the new points
-def graph_new_point(x, y):
-
-    #This places the dot
-    graph_plotter.forward(x)
-    graph_plotter.left(90)
-    graph_plotter.forward(y)
-    graph_plotter.right(90)
-    graph_plotter.dot()
-
-    #This resets the point for the next dot
-    graph_plotter.back(x)
-    graph_plotter.left(90)
-    graph_plotter.back(y)
-    graph_plotter.right(90)
 
 #This sets up the program and graph
 set_up_program(marker_number_x, marker_number_y)
@@ -267,7 +257,7 @@ while True:
 
 
     #Sets and Add seconds 
-    seconds = seconds + TIME_BETWEEN_RUNNING 
+    seconds = seconds + TIME_BETWEEN_RUNNING
 
     #Calculates the speed using wheel circumference and timestamps 
     for num in range(len(times) - test_number):
@@ -285,11 +275,14 @@ while True:
     current_list.append(speed)
 
     #Sets the X & Y cords and Graphs it
-    x = seconds * 30 
-    y = speed * 19
+    x = seconds * 18 #Determines space between X dots
+    y = speed * 19 #Determines space between Y dots
     graph_new_point(x, y)
 
-    if seconds >= 40:
+
+    print(seconds)
+
+    if seconds >= 38:
         seconds = 0
         always_on = True
 
