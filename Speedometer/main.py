@@ -304,3 +304,4 @@ while True:
     #Displays and Updates the mph_turtle
     mph_turtle.clear()
     mph_turtle.write(speed, font=("Arial", 16, "normal"))
+    
